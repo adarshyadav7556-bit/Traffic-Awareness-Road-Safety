@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Traffic Awareness | Road Safety</title>
+<meta name="description" content="A professional traffic awareness and road safety website.">
+<meta name="keywords" content="Traffic Awareness, Road Safety, Helmet, Seat Belt, Traffic Rules">
+<meta name="author" content="Adarsh">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+    font-family:'Poppins',sans-serif;
+    background:#f5f8fc;
+    color:#172033;
+    line-height:1.6;
+    overflow-x:hidden;
+}
+:root{
+    --primary:#0d6efd;
+    --primary-dark:#0755c7;
+    --secondary:#00b894;
+    --dark:#172033;
+    --muted:#64748b;
+    --white:#fff;
+    --bg:#f5f8fc;
+    --shadow:0 15px 40px rgba(15,23,42,.10);
+    --radius:20px;
+}
+a{text-decoration:none;color:inherit}
+button,input,textarea{font:inherit}
+img{display:block;max-width:100%}
+
+/* PRELOADER */
+.loader{
+    position:fixed;inset:0;z-index:9999;
+    display:grid;place-items:center;
+    background:#fff;
+    transition:.5s ease;
+}
+.loader-box{text-align:center}
+.spinner{
+    width:65px;height:65px;margin:auto;
+    border:6px solid #e7edf6;
+    border-top-color:var(--primary);
+    border-radius:50%;
+    animation:spin 1s linear infinite;
+}
+.loader p{margin-top:18px;color:var(--primary);font-weight:700}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* NAVBAR */
+.navbar{
+    position:fixed;top:0;left:0;width:100%;height:76px;
+    z-index:1000;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 7%;
+    background:rgba(255,255,255,.88);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid rgba(15,23,42,.07);
+    box-shadow:0 5px 25px rgba(15,23,42,.06);
+}
+.logo{
+    display:flex;align-items:center;gap:10px;
+    color:var(--primary);font-size:24px;font-weight:800;
+    white-space:nowrap;
+}
+.logo i{font-size:28px}
+.nav-links{
+    display:flex;align-items:center;gap:8px;
+    list-style:none;
+}
+.nav-links a{
+    display:block;padding:10px 13px;border-radius:10px;
+    color:#334155;font-size:14px;font-weight:600;
+    transition:.3s ease;
+}
+.nav-links a:hover,.nav-links a.active{
+    background:#eaf2ff;color:var(--primary);
+}
+.menu-btn{display:none;font-size:27px;color:var(--dark);cursor:pointer}
+#menu{display:none}
+
+/* PROGRESS */
+#progressBar{
+    position:fixed;top:0;left:0;width:0;height:3px;
+    background:linear-gradient(90deg,var(--primary),var(--secondary));
+    z-index:2000;
+}
+
+/* SEARCH */
+.search-section{
+    padding:105px 7% 25px;
+    background:linear-gradient(135deg,#eaf3ff,#fff);
+}
+.search-box{
+    max-width:760px;margin:auto;display:flex;
+    background:#fff;border-radius:15px;
+    box-shadow:var(--shadow);overflow:hidden;
+}
+.search-box input{
+    flex:1;border:0;outline:0;padding:15px 18px;
+    color:var(--dark);font-size:15px;
+}
+.search-box button{
+    border:0;padding:0 25px;background:var(--primary);
+    color:#fff;cursor:pointer;transition:.3s;
+}
+.search-box button:hover{background:var(--primary-dark)}
+
+/* COMMON */
+section{position:relative}
+.section-title{
+    text-align:center;color:var(--dark);
+    font-size:38px;font-weight:800;margin-bottom:12px;
+}
+.section-subtitle{
+    max-width:650px;margin:0 auto 45px;
+    text-align:center;color:var(--muted);font-size:15px;
+}
+.btn{
+    display:inline-flex;align-items:center;gap:10px;
+    border:0;cursor:pointer;
+    padding:13px 25px;border-radius:50px;
+    background:var(--primary);color:#fff;
+    font-weight:700;transition:.3s;
+    box-shadow:0 10px 25px rgba(13,110,253,.22);
+}
+.btn:hover{background:var(--primary-dark);transform:translateY(-3px)}
+
+/* HERO */
+.hero{
+    min-height:calc(100vh - 76px);
+    padding:80px 7%;
+    display:grid;grid-template-columns:1.05fr .95fr;
+    align-items:center;gap:55px;
+    background:
+        radial-gradient(circle at 10% 20%,rgba(13,110,253,.13),transparent 55%),
+        linear-gradient(135deg,#fff,#eef6ff);
+}
+.hero-content{animation:heroIn .8s ease both}
+.hero-badge{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:8px 14px;border-radius:50px;
+    background:#e8f2ff;color:var(--primary);
+    font-size:13px;font-weight:700;margin-bottom:18px;
+}
+.hero h1{
+    color:var(--dark);font-size:clamp(40px,5vw,64px);
+    line-height:1.12;margin-bottom:20px;font-weight:800;
+}
+.hero h1 span{color:var(--primary)}
+.hero p{max-width:620px;color:var(--muted);font-size:17px;margin-bottom:28px}
+.hero-buttons{display:flex;gap:14px;flex-wrap:wrap}
+.btn-outline{
+    background:transparent;color:var(--primary);
+    border:2px solid var(--primary);box-shadow:none;
+}
+.btn-outline:hover{background:var(--primary);color:#fff}
+.hero-image{
+    position:relative;animation:heroImage .9s ease .15s both;
+}
+.hero-image img{
+    width:100%;height:480px;object-fit:cover;
+    border-radius:28px;box-shadow:var(--shadow);
+}
+.floating-card{
+    position:absolute;left:-25px;bottom:25px;
+    display:flex;align-items:center;gap:12px;
+    background:rgba(255,255,255,.94);
+    padding:14px 18px;border-radius:15px;
+    box-shadow:var(--shadow);font-size:13px;font-weight:700;
+}
+.floating-card i{color:var(--secondary);font-size:25px}
+@keyframes heroIn{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:none}}
+@keyframes heroImage{from{opacity:0;transform:translateX(35px)}to{opacity:1;transform:none}}
+
+/* ABOUT */
+.about{padding:100px 7%;background:#fff}
+.about-grid{
+    display:grid;grid-template-columns:.9fr 1.1fr;
+    align-items:center;gap:60px;
+}
+.about-image img{
+    width:100%;height:430px;object-fit:cover;
+    border-radius:25px;box-shadow:var(--shadow);
+}
+.about-content h2{font-size:38px;margin-bottom:18px}
+.about-content h2 span{color:var(--primary)}
+.about-content p{color:var(--muted);margin-bottom:15px}
+.check-list{list-style:none;margin:25px 0}
+.check-list li{
+    display:flex;gap:10px;align-items:flex-start;
+    margin:13px 0;color:#334155;font-weight:600;
+}
+.check-list i{color:var(--secondary);margin-top:5px}
+
+/* SAFETY CARDS */
+.services{padding:100px 7%;background:var(--bg)}
+.service-container{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:22px;
+}
+.service-card{
+    padding:30px 22px;text-align:center;background:#fff;
+    border:1px solid #edf1f7;border-radius:20px;
+    box-shadow:0 10px 30px rgba(15,23,42,.06);
+    transition:.35s;position:relative;overflow:hidden;
+}
+.service-card::before{
+    content:"";position:absolute;left:0;top:0;width:100%;height:4px;
+    background:linear-gradient(90deg,var(--primary),var(--secondary));
+    transform:scaleX(0);transform-origin:left;transition:.35s;
+}
+.service-card:hover{transform:translateY(-9px);box-shadow:var(--shadow)}
+.service-card:hover::before{transform:scaleX(1)}
+.service-card i{
+    width:75px;height:75px;margin:0 auto 18px;
+    display:grid;place-items:center;border-radius:20px;
+    background:#eaf2ff;color:var(--primary);font-size:34px;
+}
+.service-card h3{font-size:18px;margin-bottom:8px}
+.service-card p{color:var(--muted);font-size:13px}
+
+/* STATS */
+.stats{
+    padding:65px 7%;
+    background:linear-gradient(135deg,#0d6efd,#0755c7); 
+    color:#fff;
+}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center}
+.stat h3{font-size:38px;font-weight:800}
+.stat p{opacity:.9;font-size:14px}
+
+/* SLIDER */
+.slider{padding:100px 7%;background:#fff}
+.slider-wrap{position:relative;max-width:1100px;margin:auto;overflow:hidden;border-radius:25px}
+.slide{display:none;position:relative}
+.slide.active{display:block;animation:fade .6s ease}
+.slide img{width:100%;height:470px;object-fit:cover}
+.slide-caption{
+    position:absolute;left:25px;bottom:25px;
+    background:rgba(0,0,0,.58);color:#fff;
+    padding:14px 18px;border-radius:12px;
+    backdrop-filter:blur(8px);font-weight:600;
+}
+.slider-dots{display:flex;justify-content:center;gap:8px;margin-top:18px}
+.dot{
+    width:9px;height:9px;border:0;border-radius:50%;
+    background:#cbd5e1;cursor:pointer;transition:.3s;
+}
+.dot.active{width:25px;border-radius:10px;background:var(--primary)}
+@keyframes fade{from{opacity:.4}to{opacity:1}}
+
+/* GALLERY */
+.gallery{padding:100px 7%;background:var(--bg)}
+.gallery-container{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:20px;
+}
+.gallery-item{
+    overflow:hidden;border-radius:18px;background:#fff;
+    box-shadow:0 10px 25px rgba(15,23,42,.07);
+}
+.gallery-item img{
+    width:100%;height:230px;object-fit:cover;transition:.5s;
+}
+.gallery-item:hover img{transform:scale(1.08)}
+.gallery-item:hover{box-shadow:var(--shadow)}
+
+/* CONTACT */
+.contact{padding:100px 7%;background:#fff}
+.contact-grid{
+    max-width:1000px;margin:auto;
+    display:grid;grid-template-columns:.8fr 1.2fr;gap:35px;
+}
+.contact-info{
+    padding:35px;border-radius:22px;
+    background:linear-gradient(145deg,#eaf3ff,#f8fbff);
+}
+.contact-info h3{font-size:25px;margin-bottom:12px}
+.contact-info p{color:var(--muted);font-size:14px;margin-bottom:25px}
+.contact-item{
+    display:flex;gap:14px;align-items:center;margin:18px 0;
+}
+.contact-item i{
+    width:42px;height:42px;border-radius:12px;
+    display:grid;place-items:center;background:#fff;color:var(--primary);
+}
+#contactForm{display:flex;flex-direction:column;gap:15px}
+#contactForm input,#contactForm textarea{
+    width:100%;padding:14px 16px;
+    border:1px solid #dbe3ee;border-radius:12px;
+    outline:0;background:#f9fbfd;transition:.3s;
+}
+#contactForm input:focus,#contactForm textarea:focus{
+    border-color:var(--primary);background:#fff;
+    box-shadow:0 0 0 4px rgba(13,110,253,.08);
+}
+#contactForm textarea{resize:vertical}
+
+/* NEWSLETTER */
+.newsletter{
+    padding:75px 7%;text-align:center;color:#fff;
+    background:linear-gradient(135deg,#0d6efd,#00a884);
+}
+.newsletter h2{font-size:34px}
+.newsletter p{opacity:.9;margin:8px 0 25px}
+.newsletter-form{
+    max-width:600px;margin:auto;display:flex;
+    background:#fff;border-radius:13px;overflow:hidden;padding:5px;
+}
+.newsletter-form input{
+    flex:1;border:0;outline:0;padding:12px 15px;
+}
+.newsletter-form button{
+    border:0;border-radius:9px;padding:0 22px;
+    background:#172033;color:#fff;cursor:pointer;font-weight:700;
+}
+
+/* FAQ */
+.faq{padding:100px 7%;background:var(--bg)}
+.faq-box{max-width:850px;margin:auto}
+.faq-box details{
+    background:#fff;border:1px solid #e7edf5;
+    border-radius:14px;margin-bottom:12px;padding:18px 20px;
+    box-shadow:0 6px 20px rgba(15,23,42,.04);
+}
+.faq-box summary{cursor:pointer;font-weight:700}
+.faq-box p{color:var(--muted);margin-top:12px;font-size:14px}
+
+/* SOCIAL + FOOTER */
+.social{padding:70px 7%;text-align:center;background:#fff}
+.social h2{font-size:30px}
+.social-icons{display:flex;justify-content:center;gap:12px;margin-top:22px}
+.social-icons a{
+    width:48px;height:48px;border-radius:50%;
+    display:grid;place-items:center;
+    background:#edf4ff;color:var(--primary);
+    transition:.3s;font-size:19px;
+}
+.social-icons a:hover{transform:translateY(-6px);background:var(--primary);color:#fff}
+footer{padding:25px 7%;background:#111827;color:#fff;text-align:center;font-size:14px}
+.copyright{background:#0b1120;color:#94a3b8;text-align:center;padding:14px;font-size:13px}
+
+/* COOKIE + TOP */
+.cookie-box{
+    position:fixed;right:20px;bottom:20px;width:330px;
+    padding:20px;background:#fff;border-radius:17px;
+    box-shadow:0 20px 45px rgba(0,0,0,.18);
+    z-index:1500;border:1px solid #e5eaf1;
+}
+.cookie-box p{color:var(--muted);font-size:13px;margin-bottom:14px}
+.cookie-box button{
+    width:100%;padding:11px;border:0;border-radius:10px;
+    background:var(--primary);color:#fff;cursor:pointer;font-weight:700;
+}
+#topBtn{
+    position:fixed;right:22px;bottom:22px;
+    width:48px;height:48px;border:0;border-radius:50%;
+    background:var(--primary);color:#fff;cursor:pointer;
+    display:none;z-index:1200;box-shadow:0 10px 25px rgba(13,110,253,.3);
+}
+#topBtn:hover{background:var(--primary-dark);transform:translateY(-3px)}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(35px);transition:.75s ease}
+.reveal.show{opacity:1;transform:none}
+
+/* MOBILE */
+@media(max-width:1100px){
+    .navbar{padding:0 4%}
+    .hero,.about-grid,.contact-grid{grid-template-columns:1fr}
+    .hero{text-align:center;padding:90px 5% 70px}
+    .hero p{margin-left:auto;margin-right:auto}
+    .hero-buttons{justify-content:center}
+    .hero-image{max-width:700px;margin:auto}
+    .about-image{max-width:650px;margin:auto}
+    .service-container{grid-template-columns:repeat(2,1fr)}
+    .gallery-container{grid-template-columns:repeat(3,1fr)}
+    .stats-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:800px){
+    .menu-btn{display:block}
+    .nav-links{
+        position:absolute;top:76px;right:-100%;
+        width:270px;min-height:calc(100vh - 76px);
+        padding:30px 18px;display:flex;flex-direction:column;
+        align-items:stretch;gap:8px;background:#fff;
+        box-shadow:-10px 15px 30px rgba(15,23,42,.12);
+        transition:.35s;
+    }
+    #menu:checked~.nav-links{right:0}
+    .nav-links a{padding:13px 15px}
+    .gallery-container{grid-template-columns:repeat(2,1fr)}
+    .slide img{height:360px}
+}
+@media(max-width:560px){
+    .logo{font-size:19px}
+    .logo i{font-size:23px}
+    .search-section{padding:95px 20px 20px}
+    .hero{padding-left:20px;padding-right:20px}
+    .hero h1{font-size:37px}
+    .hero p{font-size:15px}
+    .hero-image img{height:330px}
+    .floating-card{left:10px;bottom:10px;font-size:11px}
+    .about,.services,.slider,.gallery,.contact,.faq{padding:70px 20px}
+    .section-title{font-size:30px}
+    .service-container,.gallery-container,.stats-grid{grid-template-columns:1fr}
+    .slide img{height:280px}
+    .contact-grid{gap:20px}
+    .newsletter{padding:60px 20px}
+    .newsletter-form{flex-direction:column;gap:5px;background:transparent}
+    .newsletter-form input,.newsletter-form button{width:100%;height:48px;border-radius:10px}
+    .cookie-box{left:15px;right:15px;bottom:15px;width:auto}
+    #topBtn{right:15px;bottom:90px}
+}
+</style>
+</head>
+
+<body>
+
+<div id="progressBar"></div>
+
+<div class="loader" id="loader">
+    <div class="loader-box">
+        <div class="spinner"></div>
+        <p>Loading Website...</p>
+    </div>
+</div>
+
+<header>
+<nav class="navbar">
+    <a href="#home" class="logo">
+        <i class="fa-solid fa-road"></i>
+        <span>Traffic Awareness</span>
+    </a>
+
+    <input type="checkbox" id="menu">
+    <label for="menu" class="menu-btn" aria-label="Open menu">
+        <i class="fas fa-bars"></i>
+    </label>
+
+    <ul class="nav-links">
+        <li><a class="active" href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Safety Rules</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+</header>
+
+<section class="search-section">
+    <div class="search-box">
+        <input type="search" id="searchInput" placeholder="Search safety rules, helmet, seat belt...">
+        <button id="searchBtn" aria-label="Search"><i class="fas fa-search"></i></button>
+    </div>
+</section>
+
+<main>
+
+<section class="hero reveal" id="home">
+    <div class="hero-content">
+        <div class="hero-badge">
+            <i class="fas fa-shield-heart"></i>
+            Road Safety Starts With You
+        </div>
+        <h1>Follow Traffic Rules<br><span id="typing">Save Lives</span></h1>
+        <p>
+            Be a responsible road user. Simple safety habits, careful driving
+            and respect for traffic rules can help make roads safer for everyone.
+        </p>
+        <div class="hero-buttons">
+            <a href="#services" class="btn">Explore Safety <i class="fas fa-arrow-right"></i></a>
+            <a href="#contact" class="btn btn-outline">Contact Us</a>
+        </div>
+    </div>
+
+    <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1400&q=85" alt="Busy city road and traffic">
+        <div class="floating-card">
+            <i class="fas fa-circle-check"></i>
+            <span>Drive Safe • Stay Alert</span>
+        </div>
+    </div>
+</section>
+
+<section class="about reveal" id="about">
+    <div class="about-grid">
+        <div class="about-image">
+            <img src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=1200&q=85" alt="City road safety">
+        </div>
+        <div class="about-content">
+            <h2>About <span>Traffic Awareness</span></h2>
+            <p>
+                Traffic awareness encourages responsible behavior on roads and
+                helps people understand the importance of safe travel.
+            </p>
+            <p>
+                Wearing a helmet, using a seat belt, following signals and
+                avoiding distractions are simple habits that matter.
+            </p>
+            <ul class="check-list">
+                <li><i class="fas fa-check-circle"></i> Wear a properly fitted helmet on two-wheelers.</li>
+                <li><i class="fas fa-check-circle"></i> Use seat belts in cars and other vehicles.</li>
+                <li><i class="fas fa-check-circle"></i> Follow traffic signals and road signs.</li>
+                <li><i class="fas fa-check-circle"></i> Never drive while distracted.</li>
+            </ul>
+            <a href="#services" class="btn">Learn Safety Rules <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </div>
+</section>
+
+<section class="services reveal" id="services">
+    <h2 class="section-title">Essential Safety Rules</h2>
+    <p class="section-subtitle">Small actions can make a big difference. Follow these basic road-safety habits every day.</p>
+
+    <div class="service-container">
+        <article class="service-card searchable">
+            <i class="fas fa-helmet-safety"></i>
+            <h3>Wear Helmet</h3>
+            <p>Always wear a properly fitted, approved helmet while riding a two-wheeler.</p>
+        </article>
+
+        <article class="service-card searchable">
+            <i class="fas fa-car"></i>
+            <h3>Use Seat Belt</h3>
+            <p>Fasten your seat belt before the vehicle starts moving.</p>
+        </article>
+
+        <article class="service-card searchable">
+            <i class="fas fa-traffic-light"></i>
+            <h3>Follow Signals</h3>
+            <p>Respect traffic lights, road signs and lane markings.</p>
+        </article>
+
+        <article class="service-card searchable">
+            <i class="fas fa-mobile-screen-button"></i>
+            <h3>No Distraction</h3>
+            <p>Keep your attention on the road and avoid using a phone while driving.</p>
+        </article>
+    </div>
+</section>
+
+<section class="stats reveal">
+    <div class="stats-grid">
+        <div class="stat"><h3 class="counter" data-target="4">0</h3><p>Core Safety Rules</p></div>
+        <div class="stat"><h3 class="counter" data-target="12">0</h3><p>Safety Gallery Images</p></div>
+        <div class="stat"><h3 class="counter" data-target="100">0</h3><p>Safety Awareness</p></div>
+        <div class="stat"><h3 class="counter" data-target="24">0</h3><p>Hours Stay Alert</p></div>
+    </div>
+</section>
+
+<section class="slider reveal" id="highlights">
+    <h2 class="section-title">Road Safety Highlights</h2>
+    <p class="section-subtitle">Stay alert, respect other road users and make every journey safer.</p>
+
+    <div class="slider-wrap">
+        <div class="slide active">
+            <img src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1400&q=85" alt="Traffic on city road">
+            <div class="slide-caption">Stay alert in busy traffic</div>
+        </div>
+        <div class="slide">
+            <img src="https://images.unsplash.com/photo-1465447142348-e9952c393450?w=1400&q=85" alt="Road and vehicles">
+            <div class="slide-caption">Follow road signs and lane discipline</div>
+        </div>
+        <div class="slide">
+            <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1400&q=85" alt="City traffic">
+            <div class="slide-caption">Drive responsibly and patiently</div>
+        </div>
+    </div>
+    <div class="slider-dots" id="sliderDots"></div>
+</section>
+
+<section class="gallery reveal" id="gallery">
+    <h2 class="section-title">Traffic Gallery</h2>
+    <p class="section-subtitle">Visual reminders for safer roads and responsible travel.</p>
+
+    <div class="gallery-container">
+        <div class="gallery-item searchable"><img src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1000&q=80" alt="City traffic"></div>
+        <div class="gallery-item searchable"><img src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=1000&q=80" alt="Road network"></div>
+        <div class="gallery-item searchable"><img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1000&q=80" alt="Urban road"></div>
+        <div class="gallery-item searchable"><img src="https://images.unsplash.com/photo-1465447142348-e9952c393450?w=1000&q=80" alt="Vehicles on road"></div>
+        <div class="gallery-item searchable"><img src="https://images.unsplash.com/photo-1494526585095-c41746248156?w=1000&q=80" alt="Street view"></div>
+        <div class="gallery-item searchable"><img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1000&q=80" alt="Road landscape"></div>
+        <div class="gallery-item searchable"><img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1000&q=80" alt="Travel road"></div>
+        <div class="gallery-item searchable"><img src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=1000&q=80" alt="Nature road"></div>
+        <div class="gallery-item searchable"><img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1000&q=80" alt="Mountain road"></div>
+        <div class="gallery-item searchable"><img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=1000&q=80" alt="Road scenery"></div>
+        <div class="gallery-item searchable"><img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1000&q=80" alt="Road landscape"></div>
+        <div class="gallery-item searchable"><img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1000&q=80" alt="Forest road"></div>
+    </div>
+</section>
+
+<section class="contact reveal" id="contact">
+    <h2 class="section-title">Contact Us</h2>
+    <p class="section-subtitle">Have a suggestion or question about this awareness project? Send a message.</p>
+
+    <div class="contact-grid">
+        <div class="contact-info">
+            <h3>Let's Connect</h3>
+            <p>Share your feedback and help promote safer roads.</p>
+
+            <div class="contact-item">
+                <i class="fas fa-shield-heart"></i>
+                <span>Road Safety Awareness</span>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <span>Quick Contact Form</span>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-clock"></i>
+                <span>Always Stay Alert</span>
+            </div>
+        </div>
+
+        <form id="contactForm">
+            <input type="text" id="name" placeholder="Your Name" required>
+            <input type="email" id="email" placeholder="Your Email" required>
+            <input type="tel" id="phone" placeholder="Your Phone Number" required>
+            <textarea id="message" rows="6" placeholder="Your Message" required></textarea>
+            <button type="submit" class="btn">Send Message <i class="fas fa-paper-plane"></i></button>
+        </form>
+    </div>
+</section>
+
+<section class="newsletter reveal">
+    <div class="newsletter-content">
+        <h2>Stay Updated</h2>
+        <p>Subscribe for traffic awareness updates and safety reminders.</p>
+        <form class="newsletter-form" id="newsletterForm">
+            <input type="email" placeholder="Enter your email" required>
+            <button type="submit">Subscribe</button>
+        </form>
+    </div>
+</section>
+
+<section class="faq reveal">
+    <h2 class="section-title">Frequently Asked Questions</h2>
+    <p class="section-subtitle">Quick answers to common traffic-safety questions.</p>
+
+    <div class="faq-box">
+        <details>
+            <summary>Why is traffic awareness important?</summary>
+            <p>It encourages responsible road behavior and helps people understand basic safety practices.</p>
+        </details>
+        <details>
+            <summary>Why should I wear a helmet?</summary>
+            <p>A properly fitted helmet is an important protective measure for two-wheeler riders.</p>
+        </details>
+        <details>
+            <summary>Why is a seat belt important?</summary>
+            <p>Seat belts are designed to help keep vehicle occupants properly restrained during a crash.</p>
+        </details>
+        <details>
+            <summary>Can I use my phone while driving?</summary>
+            <p>Avoid phone use and other distractions while driving so your attention remains on the road.</p>
+        </details>
+    </div>
+</section>
+
+<section class="social">
+    <h2>Follow & Share Awareness</h2>
+    <div class="social-icons">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+    </div>
+</section>
+
+</main>
+
+<footer>
+    <p>© <span id="year"></span> Traffic Awareness. All Rights Reserved.</p>
+</footer>
+
+<div class="copyright">
+    Designed & Developed with ❤️ by Adarsh
+</div>
+
+<div class="cookie-box" id="cookieBox">
+    <p>This website uses cookies to improve your browsing experience.</p>
+    <button id="acceptCookie">Accept</button>
+</div>
+
+<button id="topBtn" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+</button>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    /* LOADER */
+    const loader = document.getElementById("loader");
+    window.addEventListener("load", () => {
+        setTimeout(() => {
+            loader.style.opacity = "0";
+            setTimeout(() => loader.remove(), 500);
+        }, 300);
+    });
+
+    /* MOBILE MENU */
+    const menu = document.getElementById("menu");
+    document.querySelectorAll(".nav-links a").forEach(link => {
+        link.addEventListener("click", () => menu.checked = false);
+    });
+
+    /* SMOOTH SCROLL */
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", e => {
+            const id = anchor.getAttribute("href");
+            if(id === "#") return;
+            const target = document.querySelector(id);
+            if(target){
+                e.preventDefault();
+                target.scrollIntoView({behavior:"smooth",block:"start"});
+            }
+        });
+    });
+
+    /* ACTIVE NAV */
+    const navLinks = document.querySelectorAll(".nav-links a");
+    const sections = document.querySelectorAll("main section[id]");
+    window.addEventListener("scroll", () => {
+        let current = "home";
+        sections.forEach(section => {
+            if(window.scrollY >= section.offsetTop - 150) current = section.id;
+        });
+        navLinks.forEach(link => {
+            link.classList.toggle("active", link.getAttribute("href") === "#" + current);
+        });
+    });
+
+    /* SEARCH */
+    const searchInput = document.getElementById("searchInput");
+    const searchBtn = document.getElementById("searchBtn");
+
+    function performSearch(){
+        const value = searchInput.value.trim().toLowerCase();
+        const cards = document.querySelectorAll(".searchable");
+
+        cards.forEach(card => {
+            const text = card.innerText.toLowerCase();
+            card.style.display = !value || text.includes(value) ? "" : "none";
+        });
+
+        if(value){
+            const first = [...cards].find(card => card.style.display !== "none");
+            if(first) first.scrollIntoView({behavior:"smooth",block:"center"});
+        }
+    }
+
+    searchBtn.addEventListener("click", performSearch);
+    searchInput.addEventListener("keydown", e => {
+        if(e.key === "Enter") performSearch();
+    });
+
+    /* SLIDER */
+    const slides = [...document.querySelectorAll(".slide")];
+    const dotsBox = document.getElementById("sliderDots");
+    let currentSlide = 0;
+
+    slides.forEach((_, index) => {
+        const dot = document.createElement("button");
+        dot.className = "dot" + (index === 0 ? " active" : "");
+        dot.setAttribute("aria-label", "Show slide " + (index + 1));
+        dot.addEventListener("click", () => showSlide(index));
+        dotsBox.appendChild(dot);
+    });
+
+    function showSlide(index){
+        slides.forEach((slide,i) => slide.classList.toggle("active", i === index));
+        dotsBox.querySelectorAll(".dot").forEach((dot,i) => dot.classList.toggle("active", i === index));
+        currentSlide = index;
+    }
+
+    if(slides.length > 1){
+        setInterval(() => showSlide((currentSlide + 1) % slides.length), 4000);
+    }
+
+    /* SCROLL REVEAL */
+    const revealItems = document.querySelectorAll(".reveal");
+    const revealObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if(entry.isIntersecting){
+                entry.target.classList.add("show");
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, {threshold:.12});
+    revealItems.forEach(item => revealObserver.observe(item));
+
+    /* COUNTERS */
+    const counters = document.querySelectorAll(".counter");
+    const counterObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if(!entry.isIntersecting) return;
+
+            const counter = entry.target;
+            const target = Number(counter.dataset.target);
+            let start = 0;
+            const duration = 1000;
+            const startTime = performance.now();
+
+            function update(time){
+                const progress = Math.min((time - startTime) / duration, 1);
+                start = Math.floor(progress * target);
+                counter.textContent = start;
+                if(progress < 1) requestAnimationFrame(update);
+                else counter.textContent = target;
+            }
+            requestAnimationFrame(update);
+            counterObserver.unobserve(counter);
+        });
+    }, {threshold:.6});
+    counters.forEach(counter => counterObserver.observe(counter));
+
+    /* SCROLL PROGRESS + TOP BUTTON */
+    const topBtn = document.getElementById("topBtn");
+    const progressBar = document.getElementById("progressBar");
+
+    window.addEventListener("scroll", () => {
+        const total = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = total > 0 ? (window.scrollY / total) * 100 : 0;
+        progressBar.style.width = progress + "%";
+        topBtn.style.display = window.scrollY > 450 ? "grid" : "none";
+    });
+
+    topBtn.addEventListener("click", () => {
+        window.scrollTo({top:0,behavior:"smooth"});
+    });
+
+    /* CONTACT FORM */
+    document.getElementById("contactForm").addEventListener("submit", e => {
+        e.preventDefault();
+        const name = document.getElementById("name").value.trim();
+
+        if(!name){
+            alert("Please enter your name.");
+            return;
+        }
+
+        localStorage.setItem("trafficUser", name);
+        alert("Message submitted successfully!");
+        e.target.reset();
+    });
+
+    /* NEWSLETTER */
+    document.getElementById("newsletterForm").addEventListener("submit", e => {
+        e.preventDefault();
+        const email = e.target.querySelector("input").value.trim();
+        localStorage.setItem("newsletterEmail", email);
+        alert("Subscribed successfully!");
+        e.target.reset();
+    });
+
+    /* COOKIE */
+    const cookieBox = document.getElementById("cookieBox");
+    const cookieBtn = document.getElementById("acceptCookie");
+
+    if(localStorage.getItem("cookieAccepted") === "true"){
+        cookieBox.style.display = "none";
+    }
+
+    cookieBtn.addEventListener("click", () => {
+        localStorage.setItem("cookieAccepted","true");
+        cookieBox.style.display = "none";
+    });
+
+    /* YEAR */
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+});
+</script>
+
+</body>
+</html>
