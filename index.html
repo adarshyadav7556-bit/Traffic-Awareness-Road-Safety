@@ -421,6 +421,7 @@ footer{padding:25px 7%;background:#111827;color:#fff;text-align:center;font-size
     #topBtn{right:15px;bottom:90px}
 }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 
 <body>
@@ -622,10 +623,10 @@ footer{padding:25px 7%;background:#111827;color:#fff;text-align:center;font-size
         </div>
 
         <form id="contactForm">
-            <input type="text" id="name" placeholder="Your Name" required>
-            <input type="email" id="email" placeholder="Your Email" required>
-            <input type="tel" id="phone" placeholder="Your Phone Number" required>
-            <textarea id="message" rows="6" placeholder="Your Message" required></textarea>
+            <input type="text" id="name" name="name" placeholder="Your Name" required>
+            <input type="email" id="email" name="email" placeholder="Your Email" required>
+            <input type="tel" id="phone" name="phone" placeholder="Your Phone Number" required>
+            <textarea id="message" name="message" rows="6" placeholder="Your Message" required></textarea>
             <button type="submit" class="btn">Send Message <i class="fas fa-paper-plane"></i></button>
         </form>
     </div>
@@ -838,21 +839,6 @@ document.addEventListener("DOMContentLoaded", () => {
         window.scrollTo({top:0,behavior:"smooth"});
     });
 
-    /* CONTACT FORM */
-    document.getElementById("contactForm").addEventListener("submit", e => {
-        e.preventDefault();
-        const name = document.getElementById("name").value.trim();
-
-        if(!name){
-            alert("Please enter your name.");
-            return;
-        }
-
-        localStorage.setItem("trafficUser", name);
-        alert("Message submitted successfully!");
-        e.target.reset();
-    });
-
     /* NEWSLETTER */
     document.getElementById("newsletterForm").addEventListener("submit", e => {
         e.preventDefault();
@@ -879,6 +865,41 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("year").textContent = new Date().getFullYear();
 
 });
+</script>
+
+<script>
+emailjs.init({
+    publicKey: "NQvFdqp0uUslboH72"
+});
+
+const contactForm = document.getElementById("contactForm");
+
+if (contactForm) {
+    contactForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const name = document.getElementById("name").value.trim();
+
+        if (!name) {
+            alert("Please enter your name.");
+            return;
+        }
+
+        localStorage.setItem("trafficUser", name);
+
+        emailjs.sendForm(
+            "service_jpyn2vs",
+            "template_i4zr01l",
+            this
+        ).then(function() {
+            alert("Message sent successfully!");
+            contactForm.reset();
+        }).catch(function(error) {
+            console.error("EmailJS Error:", error);
+            alert("Message could not be sent. Please try again.");
+        });
+    });
+}
 </script>
 
 </body>
